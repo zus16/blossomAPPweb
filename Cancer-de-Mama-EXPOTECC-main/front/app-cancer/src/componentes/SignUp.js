@@ -46,36 +46,48 @@ const SignUp = () => {
         };
 
   return (
-    <div className='div-father'>
-    <div className='bg-white p-3 rounded w-25'>
-        <h2>Regístrarse</h2>
+  <div className='div-father-SIGNUP'>
+
+        <div className='backgorund-img-logo'>
+          <h1></h1>
+        </div>
+      
+      <div className='info-Signup'>
+        <h2>
+          Regístrarse
+        </h2>
+
         <form onSubmit={handleSubmit}>
-            <div className='mb-3'>
-                <label htmlFor='name' className='form-label'>Nombre</label>
-                <input name='nombre' type='text' placeholder='Ingrese su nombre' value={nombre} id='name' onChange={(e) => setNombre(e.target.value)} required className='form-control rounded-0'></input>
+            <div className='input-contenedor1'>
+                <label htmlFor='name' className='form-label'></label>
+                <input name='nombre' type='text' placeholder='Ingrese su nombre' value={nombre} id='name' onChange={(e) => setNombre(e.target.value)} required className='input-dato'></input>
             </div>
-            <div className='mb-3'>
-                <label htmlFor='lastnames'>Apellidos</label>
-                <input name='apellidos' type='text' placeholder='Ingrese sus apellidos' value={apellidos} onChange={(e) => setApellidos(e.target.value)} required className='form-control rounded-0'></input>
+            <div className='input-contenedor1'>
+                <label htmlFor='lastnames'></label>
+                <input name='apellidos' type='text' placeholder='Ingrese sus apellidos' value={apellidos} onChange={(e) => setApellidos(e.target.value)} required className='input-dato'></input>
             </div>
-            <div className='mb-3'>
-                <label htmlFor='email'>Correo electronico</label>
-                <input name='correo_electronico' type='text' placeholder='Ingrese su correo' value={correo_electronico} onChange={(e) => setCorreo(e.target.value)} required className='form-control rounded-0'></input>
+            <div className='input-contenedor1'>
+                <label htmlFor='email'></label>
+                <input name='correo_electronico' type='text' placeholder='Ingrese su correo' value={correo_electronico} onChange={(e) => setCorreo(e.target.value)} required className='input-dato'></input>
             </div>
-            <div className='mb-3'>
-                <label htmlFor='borndate'>Fecha de nacimiento</label>
-                <input name='fecha_nacimiento' type='date' placeholder='Ingrese su fecha de nacimiento' value={fecha_nacimiento} onChange={(e) => setFechaNacimiento(e.target.value)} required className='form-control rounded-0'></input>
+            <div className='input-contenedor1'>
+                <label htmlFor='borndate'></label>
+                <input name='fecha_nacimiento' type='date' placeholder='Ingrese su fecha de nacimiento' value={fecha_nacimiento} onChange={(e) => setFechaNacimiento(e.target.value)} required className='input-dato'></input>
             </div>
-            <div className='mb-3'>
-                <label htmlFor='password'>Contraseña</label>
-                <input name='contrasenna' type='password' placeholder='Cree una contraseña' value={contrasenna}  onChange={(e) => setContrasenna(e.target.value)} required className='form-control rounded-0'></input>
+            <div className='input-contenedor1'>
+                <label htmlFor='password'></label>
+                <input name='contrasenna' type='password' placeholder='Cree una contraseña' value={contrasenna}  onChange={(e) => setContrasenna(e.target.value)} required className='input-dato'></input>
             </div>
-            <button type='submit' className='btn btn-success w-100'>Regístrarse</button>
-            <p>Aceptar términos y condiciones</p>
-            <Link to = '/login' className='btn btn-default border w-100 text-decoration-none'>Inicia sesión</Link>
+            <div className='div-btn-registrar'>
+            <button type='submit' className='btn-iniciar-sesion'>Regístrarse</button>
+            </div>
+            <div className='div-btn-link-login'>
+            <Link to = '/login' className='btn-link-login'>Inicia sesión</Link>
+            </div>
         </form>
-    </div>   
-</div>
+
+      </div>   
+  </div>
   )
 }
 

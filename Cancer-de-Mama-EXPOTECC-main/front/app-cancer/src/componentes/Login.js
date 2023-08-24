@@ -1,12 +1,14 @@
 import React, {useState, useEffect} from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import Cookies from 'js-cookie';
+import jwt_decode from 'jwt-decode';
 import './css/login.css'
 
 // Configurar el token en las cabeceras de autorización de Axios
 axios.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem('token');
+    const token = Cookies.get('token');
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -23,6 +25,13 @@ function Login({ authenticated, setAuthenticated }) {
     const [errorMessage, setErrorMessage] = useState('');
 
     const travelToHome = useNavigate();
+
+    useEffect(() => {
+      // Si el usuario ya está autenticado, redirigir a la página de inicio
+      if (authenticated) {
+        travelToHome('/Home');
+      }
+    }, [authenticated, travelToHome]);
 
     useEffect(() => {
       if (errorMessage) {
@@ -48,17 +57,18 @@ function Login({ authenticated, setAuthenticated }) {
           correo_electronico: correo_electronico,
           contrasenna: contrasenna,
         });
+    
+        const token = response.data.token;
+        const expirationDate = jwt_decode(token).exp * 1000; // Convertir a milisegundos
+        Cookies.set('token', token, { expires: new Date(expirationDate) });
   
-        // Manejar la respuesta de la API
-        console.log(response.data); 
-  
-        localStorage.setItem('token', response.data.token);
 
         // Restablecer los campos del formulario
         setAuthenticated(true);
         setCorreo('');
         setContra('');
         setErrorMessage(response.data.message);
+        
         } catch (error) {
           console.log(error);
         // Manejar el error de la API
@@ -67,27 +77,36 @@ function Login({ authenticated, setAuthenticated }) {
         } else {
           setErrorMessage('Error de inicio de sesión');
         }
+        setAuthenticated(false);
       }
     };
 
   return (
-    <div className='div-father'>
-        <div className='bg-white p-3 rounded w-25'>
-        <h2>Iniciar sesión</h2>
+    <div className='div-father-LOGIN'>
+
+      <div className='backgorund-img-logo'>
+        <h1>Iniciar sesión</h1>
+        </div>
+
+        <div className='info-login'>
+        <h2>
+        </h2>
             <form action='' onSubmit={handleSubmit}>
-                <div className='mb-3'>
-                    <label htmlFor='correo_electronico'>Correo</label>
-                    <input type='text' placeholder='Escriba su correo' name='correo_electronico' onChange={(e) => setCorreo(e.target.value)} className='form-control rounded-0'></input>
+                <div className='input-contenedor1'>
+                    <label htmlFor='correo_electronico'></label>
+                    <input type='text' placeholder='Ingresa tu correo' name='correo_electronico' onChange={(e) => setCorreo(e.target.value)} className='input-dato'></input>
                 </div>
-                <div className='mb-3'>
-                    <label htmlFor='contrasenna'>Contraseña</label>
-                    <input type='password' placeholder='Escriba su contraseña' name='contrasenna' onChange={(e) => setContra(e.target.value)} className='form-control rounded-0'></input>
+                <div className='input-contenedor'>
+                    <label htmlFor='contrasenna'></label>
+                    <input type='password' placeholder='Ingresa tu contraseña' name='contrasenna' onChange={(e) => setContra(e.target.value)} className='input-dato'></input>
                 </div>
-                <button type="submit" className='btn btn-success w-100'>Iniciar sesión</button>
+                <div className='div-btn-iniciar-sesion'>
+                <button type="submit" className='btn-iniciar-sesion'>Iniciar sesión</button>
+                </div>
                 {errorMessage && <p>{errorMessage}</p>}
-                <p>Aceptar términos y condiciones</p>
-                <Link to = '/signup' className='btn btn-default border w-100 text-decoration-none'>¿Olvidaste tu contraseña</Link>
-                <Link to = '/registro' className='btn btn-default border w-100 text-decoration-none'>¿No tienes una cuenta? Cree una</Link>
+                <div className='div-btn-link-signup'>
+                <Link to = '/registro' className='btn-link-signup'>¿No tienes una cuenta? Crea una</Link>
+                </div>
             </form>
         </div>   
     </div>

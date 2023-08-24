@@ -1,22 +1,21 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import './css/home.css'
+import React, { useEffect } from 'react';
+import Cookies from 'js-cookie';
+import { useNavigate } from 'react-router-dom';
+import './css/home.css';
 
-function Home({ authenticated, setAuthenticated }) {
-  const handleLogout = () => {
-    localStorage.removeItem('token');
-    setAuthenticated(false);
-  };
+function Home() {
+  const travel = useNavigate();
+
+
 
   return (
-    <div>
-      <h1>Bienvenido a la página de inicio</h1>
-      {authenticated ? (
-        <button onClick={handleLogout}>Cerrar sesión</button>
-      ) : (
-        <p>Por favor, inicia sesión para acceder a esta página.</p>
-      )}
-      <Link to="/login">Iniciar sesion</Link>
+    <div className='div-homeP'>
+    <div className='div-father-home'>
+      <div className='div-home-title'>
+      <h1>Una lucha constante contra el cáncer de mama!</h1>
+      </div>
+      <div className='son1-home'>HIJO 1</div>
+    </div>
     </div>
   );
 }

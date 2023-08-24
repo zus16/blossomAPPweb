@@ -10,11 +10,12 @@ const app = express()
 
 app.set('port',process.env.PORT || 9000)
 
+const database_pass = process.env.password;
 const dboptions = {
     host: 'localhost',
     port: 3306,
     user: 'root',
-    password: 'Contra_mySQL16!!',
+    password: database_pass,
     database: 'expotec2023cancerdemama',
 }
     
@@ -34,4 +35,3 @@ app.use('/api', routes)
 app.listen(app.get('port'), ()=>{
     console.log('server en el puerto', app.get('port'))
 })
-
